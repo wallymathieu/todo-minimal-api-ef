@@ -46,13 +46,11 @@ public class DbFixture : IAsyncLifetime
 public class ApiFixture : IAsyncLifetime
 {
     private readonly WebApplicationFactory<Program> _testServer;
-    private readonly DbFixture _dbFixture;
-    private readonly WebApplicationFactory<Program> factory;
+    private readonly DbFixture _dbFixture = new();
 
     public ApiFixture()
     {
-        _dbFixture = new DbFixture();
-        factory = new WebApplicationFactory<Program>();
+        var factory = new WebApplicationFactory<Program>();
         _testServer = factory.WithWebHostBuilder(c => c.UseConfiguration(new ConfigurationBuilder().AddInMemoryCollection(new Dictionary<string, string?> {
                    {"AZURE_SQL_CONNECTION_STRING_KEY", "CONNECTION_STRING"},
                    {"CONNECTION_STRING", _dbFixture.GetConnectionString()}
