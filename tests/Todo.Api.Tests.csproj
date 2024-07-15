@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.7" />
     <PackageReference Include="Testcontainers.MsSql" Version="3.9.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.1">
