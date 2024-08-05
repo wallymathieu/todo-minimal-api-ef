@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using DotNet.Testcontainers.Builders;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -23,6 +24,16 @@ public class DbFixture : IAsyncLifetime
            .WithImage("mcr.microsoft.com/mssql/server:2022-latest")
            .WithPassword("Strong_password_123!")
            .WithHostname(Guid.NewGuid().ToString("N"))
+           .WithEnvironment("ACCEPT_EULA", "Y")
+           .WithPortBinding(11143, 1433)
+           .WithWaitStrategy(
+                Wait.ForUnixContainer()
+                    .UntilCommandIsCompleted(
+                        "/opt/mssql-tools18/bin/sqlcmd",
+                        "-C",
+                        "-Q",
+                        "SELECT 1;"
+                    ))
            .Build();
     }
 
