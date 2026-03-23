@@ -19,7 +19,10 @@ builder.Services.AddDbContext<TodoDb>(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors();
-builder.Services.AddApplicationInsightsTelemetry(builder.Configuration);
+if (!string.IsNullOrEmpty(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]))
+{
+    builder.Services.AddApplicationInsightsTelemetry(builder.Configuration);
+}
 
 var app = builder.Build();
 
